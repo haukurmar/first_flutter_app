@@ -31,7 +31,7 @@ class _CustomersPageState extends State<CustomersPage> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 16.0),
-              child: Text('This is the business page',
+              child: Text('This is the customers page',
                   style: Theme.of(context).textTheme.headline6),
             ),
           ],

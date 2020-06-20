@@ -21,7 +21,7 @@ class _MyAppState extends State<MyApp> {
       title: "Home page",
     ),
     CustomersPage(
-      title: "Business page",
+      title: "Customers page",
     ),
     SchoolPage(
       title: "School page",
@@ -92,7 +92,7 @@ class _MyAppState extends State<MyApp> {
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.business),
-              title: Text('Business'),
+              title: Text('Customers'),
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.school),
