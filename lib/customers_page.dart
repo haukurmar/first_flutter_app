@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
+import './customers/customer_models.dart';
+import 'customers/customer_data.dart';
+
 class CustomersPage extends StatefulWidget {
   CustomersPage({Key key, this.title}) : super(key: key);
-
   final String title;
 
   @override
@@ -10,6 +12,14 @@ class CustomersPage extends StatefulWidget {
 }
 
 class _CustomersPageState extends State<CustomersPage> {
+  Future<Customer> futureCustomer;
+
+  @override
+  void initState() {
+    super.initState();
+    futureCustomer = fetchCustomer("12");
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -33,6 +43,21 @@ class _CustomersPageState extends State<CustomersPage> {
               margin: EdgeInsets.only(bottom: 16.0),
               child: Text('This is the customers page',
                   style: Theme.of(context).textTheme.headline6),
+            ),
+            Center(
+              child: FutureBuilder<Customer>(
+                future: futureCustomer,
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return Text(snapshot.data.firstName);
+                  } else if (snapshot.hasError) {
+                    return Text("${snapshot.error}");
+                  }
+
+                  // By default, show a loading spinner.
+                  return CircularProgressIndicator();
+                },
+              ),
             ),
           ],
         ),
