@@ -33,16 +33,26 @@ class _HomePageState extends State<HomePage> {
               color: Colors.white),
         ),
       ),
-      body: Center(
+      body: Container(
+        padding: EdgeInsets.all(16.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(
-              'You have pushed the button this many times:',
+            Container(
+              margin: EdgeInsets.only(bottom: 16.0),
+              child: Text('How many times must a man walk down?',
+                  style: Theme.of(context).textTheme.headline6),
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
+            Container(
+              height: 200.0,
+              //margin: EdgeInsets.all(16.0),
+              alignment: Alignment.center,
+              decoration: BoxDecoration(
+                  color: Colors.amber,
+                  borderRadius: BorderRadius.circular(16.0)),
+              child: Text(
+                '$_counter',
+                style: Theme.of(context).textTheme.headline4,
+              ),
             ),
           ],
         ),
