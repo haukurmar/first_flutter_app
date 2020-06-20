@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 
-class BusinessPage extends StatefulWidget {
-  BusinessPage({Key key, this.title}) : super(key: key);
+class CustomersPage extends StatefulWidget {
+  CustomersPage({Key key, this.title}) : super(key: key);
 
   final String title;
 
   @override
-  _BusinessPageState createState() => _BusinessPageState();
+  _CustomersPageState createState() => _CustomersPageState();
 }
 
-class _BusinessPageState extends State<BusinessPage> {
+class _CustomersPageState extends State<CustomersPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

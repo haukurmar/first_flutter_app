@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import './business.dart';
-import './home.dart';
+import './customers_page.dart';
+import './home_page.dart';
 import './school_page.dart';
 
 void main() {
@@ -20,7 +20,7 @@ class _MyAppState extends State<MyApp> {
     HomePage(
       title: "Home page",
     ),
-    BusinessPage(
+    CustomersPage(
       title: "Business page",
     ),
     SchoolPage(
