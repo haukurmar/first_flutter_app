@@ -1,14 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'home.dart';
+import './business.dart';
+import './home.dart';
+import './school_page.dart';
 
 void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  int _selectedPage = 0;
+  final _pageOptions = [
+    HomePage(
+      title: "Home page",
+    ),
+    BusinessPage(
+      title: "Business page",
+    ),
+    SchoolPage(
+      title: "School page",
+    )
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedPage = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -44,7 +69,50 @@ class MyApp extends StatelessWidget {
             overline: GoogleFonts.openSans(
                 fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
           )),
-      home: HomePage(title: 'My first Flutter app'),
+      home: Scaffold(
+//        appBar: AppBar(
+//          title: Text(
+//            "App Header",
+//            //widget.title,
+//            style: TextStyle(
+//                fontFamily: Theme.of(context).textTheme.headline6.fontFamily,
+//                fontSize: Theme.of(context).textTheme.headline6.fontSize,
+//                fontWeight: Theme.of(context).textTheme.headline6.fontWeight,
+//                letterSpacing:
+//                    Theme.of(context).textTheme.headline6.letterSpacing,
+//                color: Colors.white),
+//          ),
+//        ),
+        body: _pageOptions[_selectedPage],
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              title: Text('Home'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.business),
+              title: Text('Business'),
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.school),
+              title: Text('School'),
+            ),
+          ],
+          currentIndex: _selectedPage,
+          selectedItemColor: Colors.amber[800],
+          onTap: _onItemTapped,
+        ),
+      ),
+      //initialRoute: '/',
+//      routes: {
+//        '/': (context) => HomePage(
+//              title: "Home page",
+//            ),
+//        '/business': (context) => BusinessPage(
+//              title: "Business page",
+//            ),
+//      },
     );
   }
 }
