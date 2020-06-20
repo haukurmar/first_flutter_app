@@ -13,11 +13,13 @@ class CustomersPage extends StatefulWidget {
 
 class _CustomersPageState extends State<CustomersPage> {
   Future<Customer> futureCustomer;
+  Future<List<Customer>> futureCustomers;
 
   @override
   void initState() {
     super.initState();
-    futureCustomer = fetchCustomer("12");
+    futureCustomers = CustomerApi.getCustomers();
+    futureCustomer = CustomerApi.getSingleCustomer("12");
   }
 
   @override
@@ -37,30 +39,53 @@ class _CustomersPageState extends State<CustomersPage> {
       ),
       body: Container(
         padding: EdgeInsets.all(16.0),
-        child: Column(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(bottom: 16.0),
-              child: Text('This is the customers page',
-                  style: Theme.of(context).textTheme.headline6),
-            ),
-            Center(
-              child: FutureBuilder<Customer>(
-                future: futureCustomer,
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return Text(snapshot.data.firstName);
-                  } else if (snapshot.hasError) {
-                    return Text("${snapshot.error}");
-                  }
+        child: FutureBuilder<List<Customer>>(
+          future: futureCustomers,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView.builder(
+                  itemCount: snapshot.data.length,
+                  itemBuilder: (context, index) {
+                    var customer = snapshot.data[index];
+                    return ListTile(
+                      title: Text(customer.firstName + " " + customer.lastName),
+                    );
+                  });
+            } else if (snapshot.hasError) {
+              return Text("${snapshot.error}");
+            }
 
-                  // By default, show a loading spinner.
-                  return CircularProgressIndicator();
-                },
-              ),
-            ),
-          ],
+            // By default, show a loading spinner.
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          },
         ),
+//        child: Column(
+//          children: <Widget>[
+//            Container(
+//              margin: EdgeInsets.only(bottom: 16.0),
+//              child: Text('This is the customers page',
+//                  style: Theme.of(context).textTheme.headline6),
+//            ),
+//            Center(
+//              child: FutureBuilder<Customer>(
+//                future: futureCustomer,
+//                builder: (context, snapshot) {
+//                  if (snapshot.hasData) {
+//                    return Text(snapshot.data.firstName);
+//                  } else if (snapshot.hasError) {
+//                    return Text("${snapshot.error}");
+//                  }
+//
+//                  // By default, show a loading spinner.
+//                  return CircularProgressIndicator();
+//                },
+//              ),
+//            ),
+//
+//          ],
+//        ),
       ),
     );
   }
