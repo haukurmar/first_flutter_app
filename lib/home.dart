@@ -11,10 +11,18 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _counter = 0;
+  int _selectedNavIndex = 0;
 
   void _incrementCounter() {
     setState(() {
       _counter++;
+    });
+  }
+
+  void _onItemTapped(int index) {
+    setState(() {
+      print("tap");
+      _selectedNavIndex = index;
     });
   }
 
@@ -39,7 +47,7 @@ class _HomePageState extends State<HomePage> {
           children: <Widget>[
             Container(
               margin: EdgeInsets.only(bottom: 16.0),
-              child: Text('How many times must a man walk down?',
+              child: Text('How many roads must a man walk down?',
                   style: Theme.of(context).textTheme.headline6),
             ),
             Container(
@@ -56,6 +64,25 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            title: Text('Home'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.business),
+            title: Text('Business'),
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.school),
+            title: Text('School'),
+          ),
+        ],
+        currentIndex: _selectedNavIndex,
+        selectedItemColor: Colors.amber[800],
+        onTap: _onItemTapped,
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
