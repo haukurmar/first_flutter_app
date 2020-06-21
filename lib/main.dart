@@ -1,3 +1,4 @@
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-          primarySwatch: Colors.green,
+          primarySwatch: Colors.lightBlue,
           visualDensity: VisualDensity.adaptivePlatformDensity,
           textTheme: TextTheme(
             headline1: GoogleFonts.openSans(
@@ -70,38 +71,20 @@ class _MyAppState extends State<MyApp> {
                 fontSize: 10, fontWeight: FontWeight.w400, letterSpacing: 1.5),
           )),
       home: Scaffold(
-//        appBar: AppBar(
-//          title: Text(
-//            "App Header",
-//            //widget.title,
-//            style: TextStyle(
-//                fontFamily: Theme.of(context).textTheme.headline6.fontFamily,
-//                fontSize: Theme.of(context).textTheme.headline6.fontSize,
-//                fontWeight: Theme.of(context).textTheme.headline6.fontWeight,
-//                letterSpacing:
-//                    Theme.of(context).textTheme.headline6.letterSpacing,
-//                color: Colors.white),
-//          ),
-//        ),
         body: _pageOptions[_selectedPage],
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              title: Text('Home'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              title: Text('Customers'),
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              title: Text('School'),
-            ),
-          ],
-          currentIndex: _selectedPage,
-          selectedItemColor: Colors.amber[800],
+        bottomNavigationBar: CurvedNavigationBar(
+          backgroundColor: Colors.white,
+          color: Colors.lightBlue,
+          height: 72,
+          animationDuration: Duration(milliseconds: 200),
+          animationCurve: Curves.bounceInOut,
           onTap: _onItemTapped,
+          index: _selectedPage,
+          items: <Widget>[
+            Icon(Icons.home, size: 24, color: Colors.white),
+            Icon(Icons.business, size: 24, color: Colors.white),
+            Icon(Icons.school, size: 24, color: Colors.white),
+          ],
         ),
       ),
       //initialRoute: '/',
