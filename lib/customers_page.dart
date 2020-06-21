@@ -46,18 +46,25 @@ class _CustomersPageState extends State<CustomersPage> {
                   itemCount: snapshot.data.length,
                   itemBuilder: (context, index) {
                     var customer = snapshot.data[index];
-                    return ListTile(
-                      title: Text(customer.firstName + " " + customer.lastName),
-                      onTap: () {
-                        print("click");
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => CustomerDetailsPage(
-                                      title: "Customer details",
-                                      customerId: customer.id,
-                                    )));
-                      },
+                    return Container(
+                      color: Colors.orange,
+                      margin: EdgeInsets.only(bottom: 8),
+                      child: ListTile(
+                        title:
+                            Text(customer.firstName + " " + customer.lastName),
+                        leading: Icon(Icons.account_circle),
+                        trailing: Icon(Icons.chevron_right),
+                        onTap: () {
+                          print("click");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => CustomerDetailsPage(
+                                        title: "Customer details",
+                                        customerId: customer.id,
+                                      )));
+                        },
+                      ),
                     );
                   });
             } else if (snapshot.hasError) {
