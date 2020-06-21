@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import './customers/customer_models.dart';
 import 'customers/customer_data.dart';
+import 'customers/customer_details_page.dart';
 
 class CustomersPage extends StatefulWidget {
   CustomersPage({Key key, this.title}) : super(key: key);
@@ -12,14 +13,12 @@ class CustomersPage extends StatefulWidget {
 }
 
 class _CustomersPageState extends State<CustomersPage> {
-  Future<Customer> futureCustomer;
   Future<List<Customer>> futureCustomers;
 
   @override
   void initState() {
     super.initState();
     futureCustomers = CustomerApi.getCustomers();
-    futureCustomer = CustomerApi.getSingleCustomer("12");
   }
 
   @override
@@ -49,6 +48,16 @@ class _CustomersPageState extends State<CustomersPage> {
                     var customer = snapshot.data[index];
                     return ListTile(
                       title: Text(customer.firstName + " " + customer.lastName),
+                      onTap: () {
+                        print("click");
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CustomerDetailsPage(
+                                      title: "Customer details",
+                                      customerId: customer.id,
+                                    )));
+                      },
                     );
                   });
             } else if (snapshot.hasError) {
@@ -61,31 +70,6 @@ class _CustomersPageState extends State<CustomersPage> {
             );
           },
         ),
-//        child: Column(
-//          children: <Widget>[
-//            Container(
-//              margin: EdgeInsets.only(bottom: 16.0),
-//              child: Text('This is the customers page',
-//                  style: Theme.of(context).textTheme.headline6),
-//            ),
-//            Center(
-//              child: FutureBuilder<Customer>(
-//                future: futureCustomer,
-//                builder: (context, snapshot) {
-//                  if (snapshot.hasData) {
-//                    return Text(snapshot.data.firstName);
-//                  } else if (snapshot.hasError) {
-//                    return Text("${snapshot.error}");
-//                  }
-//
-//                  // By default, show a loading spinner.
-//                  return CircularProgressIndicator();
-//                },
-//              ),
-//            ),
-//
-//          ],
-//        ),
       ),
     );
   }
